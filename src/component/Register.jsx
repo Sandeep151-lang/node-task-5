@@ -27,7 +27,7 @@ export const Register = () => {
         password: Yup.string()
             .required('Please Enter your password')
             .matches(
-                "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$",
+                "^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$",
                 "Must Contain 8 Characters, One Uppercase, One Lowercase and one special case Character"
             ),
         email: Yup.string().matches(

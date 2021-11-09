@@ -80,29 +80,7 @@ const ForgotPassword = () => {
 
             <button type="submit" class="btn btn-primary" onClick={(e) => submit(e)}>Submit</button>
         </form>
-        {/* <Container className="themed-container" style={{ "width": "70%" }}>
-            <Form method="POST">
-                <FormGroup row className="py-3">
-                    <TextField color="warning" id="fname" label="First name" type="text" variant="filled" name="fname" value={form_data.first_name} onChange={handlevent} autoComplete="off" required />
-                </FormGroup>
-                <FormGroup row className="py-3">
-                    <TextField required color="warning" id="lname" label="Last name" type="text" variant="filled" name="lname" value={form_data.last_name} onChange={handlevent} />
-                </FormGroup>
-                <FormGroup row className="py-3">
-                    <TextField required color="warning" id="email_id" label="Email_id" type="email" variant="filled" name="email" value={form_data.email} onChange={handlevent} />
-                </FormGroup>
-                <FormGroup row className="py-3">
-                    <TextField required color="warning" id="email_id" label="Email_id" type="email" variant="filled" name="email" value={form_data.password} onChange={handlevent} />
-                </FormGroup>
-                <FormGroup row className="py-3">
-                    <TextField required color="warning" id="email_id" label="Email_id" type="email" variant="filled" name="email" value={form_data.confirm_password} onChange={handlevent} />
-                </FormGroup>
-                <FormGroup row>
-                    <Button className="mt-3 py-1" style={{ "width": "100%" }} variant="contained" onClick={(e) => submit(e)}>Submit</Button>
-                </FormGroup>
-                <ToastContainer />
-            </Form>
-        </Container> */}
+       
     </>
 }
 
