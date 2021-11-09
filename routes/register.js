@@ -192,7 +192,7 @@ router.put('/:token/:email', async (req, res) => {
 
     const hash = await bcrypt.hash(req.body.password , 10)
     const up = await UserData.updateOne({ email: email }, { $set: { password:hash,confirm_password:hash} })
-   
+   res.send(up)
     
 })
 
