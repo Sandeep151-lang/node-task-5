@@ -159,7 +159,7 @@ router.put('/forget_password', async (req, res) => {
                     pass: 'rfncmwkkovvsbcsv' // naturally, replace both with your real credentials or an application-specific password
                 }
             });
-            const token = jwt.sign({ _id: user._id }, 'sandeepnandanwar12345', { expiresIn: '1m' });
+            const token = jwt.sign({ _id: user._id }, 'sandeepnandanwar12345', { expiresIn: '5m' });
             
             const mailOptions = {
                 from: 'sandeepnandanwar92@gmail.com',
