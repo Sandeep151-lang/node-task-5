@@ -165,7 +165,7 @@ router.put('/forget_password', async (req, res) => {
                 from: 'sandeepnandanwar92@gmail.com',
                 to: email,
                 subject: 'otp will expire in 1 minute',
-                html: `https://nodejs-task-5.herokuapp.com/${token}/${email}`
+                html: `https://vigilant-edison-543583.netlify.app/reset/${token}/${email}`
             };
             //`http://localhost:5000/${token}/${email}`
             transporter.sendMail(mailOptions, function (error, info) {
