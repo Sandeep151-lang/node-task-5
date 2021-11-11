@@ -34,18 +34,22 @@ const Password = () => {
             onSubmit={async (values) => {
                 // same shape as initial values
 
-                // const post = await axios.post(`https://61485ca2035b3600175b9dc6.mockapi.io/api/v1/users`, values)
-                const post = await axios.put(`https://nodejs-task-5.herokuapp.com/forget_password`, values)
-
-                setinitialvalues(post)
-                history.push("/")
+                try {
+                    const post = await axios.put(`https://nodejs-task-5.herokuapp.com/forget_password`, values)
+                    alert('link has been sent in your gmail')
+                    setinitialvalues(post)
+                    history.push("/")
+                } catch {
+                    alert('email not exist')
+                }
+               
             }}>
 
 
             {({ errors, touched }) => {
                 return (
                     <>
-                        <div className="container text-center"><h1 className="font-weight-bold text-dark">LogIn</h1></div>
+                        <div className="container text-center"><h1 className="font-weight-bold text-dark">Password reset</h1></div>
                         <Form className="ml-5">
                             <div className="form-row">
                                 <div className="form-group col-10">
@@ -57,9 +61,9 @@ const Password = () => {
                             </div>
 
                             <button className="btn btn-primary mr-2" type="submit">Submit</button>
-                            {/* <button className="btn btn-success mr-2" type="reset">Reset</button> */}
+                           
                             <span>Back to Login <Link to='/'>LogIn</Link></span>
-                            {/* <p className="foreget_password_link">Foreget Password <Link to='/password'>ForgetPassword</Link></p> */}
+                          
                         </Form>
                     </>
                 );

@@ -38,11 +38,15 @@ export const Login = () => {
             onSubmit={async (values) => {
                 // same shape as initial values
 
-                // const post = await axios.post(`https://61485ca2035b3600175b9dc6.mockapi.io/api/v1/users`, values)
-                const post = await axios.post(`https://nodejs-task-5.herokuapp.com/singin`, values)
-
-                setinitialvalues(post)
-                history.push("/for")
+                try {
+                    const post = await axios.post(`https://nodejs-task-5.herokuapp.com/singin`, values)
+                    alert('login successfull')
+                    setinitialvalues(post)
+                    history.push("/homepage")
+                } catch {
+                    alert('invalid')
+            }
+               
             }}>
 
 
@@ -69,8 +73,8 @@ export const Login = () => {
                             </div>
 
                             <button className="btn btn-primary mr-2" type="submit">Submit</button>
-                            {/* <button className="btn btn-success mr-2" type="reset">Reset</button> */}
-                            <span> Don't have accound please  <Link to='/reg'>SingUp</Link></span>
+                           
+                            <span> Don't have accound please  <Link to='/register'>SingUp</Link></span>
                             <p className="foreget_password_link">Foreget Password <Link to='/password'>ForgetPassword</Link></p>
                         </Form>
                     </>

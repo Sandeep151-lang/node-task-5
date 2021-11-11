@@ -3,9 +3,12 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useHistory } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 
 const ResetPassword = () => {
+    const { email,token } = useParams();
+
     const history = useHistory();
 
     const [initialValues, setinitialvalues] = useState({
@@ -19,10 +22,7 @@ const ResetPassword = () => {
             .matches(
                 "^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$",
                 "Must Contain 8 Characters, One Uppercase, One Lowercase and one special case Character"
-            ),
-        confirm_password: Yup.string()
-            .required('Please Enter your password')
-            .oneOf([Yup.ref('password'), null], 'Passwords must match')
+            )
     });
 
 
@@ -32,18 +32,22 @@ const ResetPassword = () => {
             onSubmit={async (values) => {
                 // same shape as initial values
 
-                // const post = await axios.post(`https://61485ca2035b3600175b9dc6.mockapi.io/api/v1/users`, values)
-                const post = await axios.put(`https://nodejs-task-5.herokuapp.com/:token/:email`, values)
-
-                setinitialvalues(post)
-                history.push("/")
+                try {
+                    const post = await axios.put(`https://nodejs-task-5.herokuapp.com/${token}/${email}`, values)
+                    alert('password changed successfully')
+                    setinitialvalues(post)
+                    history.push("/")
+                } catch {
+                    alert('invalid user')
+               }
+              
             }}>
 
 
             {({ errors, touched }) => {
                 return (
                     <>
-                        <div className="container text-center"><h1 className="font-weight-bold text-dark">AddUser</h1></div>
+                        <div className="container text-center"><h1 className="font-weight-bold text-dark">Password changed</h1></div>
                         <Form className="ml-5">
                             <div className="form-row">
                                 <div className="form-group col-10">

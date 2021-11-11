@@ -48,11 +48,16 @@ export const Register = () => {
             onSubmit={async (values) => {
                 // same shape as initial values
 
-                // const post = await axios.post(`https://61485ca2035b3600175b9dc6.mockapi.io/api/v1/users`, values)
+                try {
                 const post = await axios.post(`https://nodejs-task-5.herokuapp.com/register`, values)
+                alert('register successfully')
 
                 setinitialvalues(post)
-                history.push("/")
+                    history.push("/")
+                    
+                } catch {
+                    alert('invalid')
+                }
             }}>
 
 
