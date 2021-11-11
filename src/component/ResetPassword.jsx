@@ -47,7 +47,7 @@ const ResetPassword = () => {
             {({ errors, touched }) => {
                 return (
                     <>
-                        <div className="container text-center"><h1 className="font-weight-bold text-dark">Password changed</h1></div>
+                        <div className="container text-center"><h1 className="font-weight-bold text-dark">Password Reset</h1></div>
                         <Form className="ml-5">
                             <div className="form-row">
                                 <div className="form-group col-10">
