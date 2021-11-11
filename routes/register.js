@@ -28,14 +28,13 @@ register = new Schema({
 var UserData = mongoose.model('user-register', register);
 
 
-//otp generate collection of mongodb database
-var otp = new Schema({
-    code: { type: String },
-    createdAt: { type: Date, expires: '1m', default: Date.now }
-}, { collection: 'otp' });
-var otpcreate = mongoose.model('otp', otp)
 
-
+//list all the users
+router.get('/', async function (req, res) {
+    await UserData.find().then((doc) => {
+        return res.send({ item: doc })
+    })
+});
 
 
 
@@ -54,12 +53,6 @@ router.post('/register', async (req, res, next) => {
                 var user_register = await UserData({ first_name, last_name, email, password: hash, confirm_password: hash });
 
                 user_register.save();
-
-
-                // res.status().send({
-                //     message: 'register successfully',
-                //     data: user_register
-                // })
                 return res.status(200).send({ message: 'successfull' })
                 next();
             }
@@ -68,7 +61,7 @@ router.post('/register', async (req, res, next) => {
             return res.send({ message: 'error' })
         }
         finally {
-            client.close();
+            UserData.close();
         }
     }
 })
@@ -97,22 +90,16 @@ router.post('/singin', async (req, res, next) => {
         return res.send({ message: 'error' })
     }
     finally {
-        client.close();
+        UserData.close();
     }
 
 
 })
 
 
-//list all the users
-router.get('/', async function (req, res) {
-    await UserData.find().then((doc) => {
-        return res.send({ item: doc })
-    })
-});
 
 
-
+//email match if the email exist then password change
 router.put('/forget', async (req, res, next) => {
     const { email } = req.body
     try {
@@ -138,15 +125,17 @@ router.put('/forget', async (req, res, next) => {
         return res.send({ message: 'error' })
     }
     finally {
-        client.close();
+        UserData.close();
     }
 
 
 })
 
-router.put('/forget_password', async (req, res) => {
-   
-    
+
+
+
+//password change link send in gmail
+router.put('/forget_password', async (req, res) => { 
     const { email } = req.body;
     UserData.findOne({ email }, (err, user) => {
         if (err || !user) {
@@ -167,7 +156,6 @@ router.put('/forget_password', async (req, res) => {
                 subject: 'otp will expire in 1 minute',
                 html: `https://vigilant-edison-543583.netlify.app/reset/${token}/${email}`
             };
-            //`http://localhost:5000/${token}/${email}`
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
                     console.log(error);
@@ -175,8 +163,6 @@ router.put('/forget_password', async (req, res) => {
                     console.log('Email sent: ' + info.response);
                 }
             });
-
-         
            return res.send(token)
 
          }
@@ -185,14 +171,23 @@ router.put('/forget_password', async (req, res) => {
 })
 
 
-router.put('/:token/:email', async (req, res) => {
+
+
+//password update with token and email
+router.put('/:token/:email', async (req, res) => {  
     
-    let email = req.params.email;
+    try {
+        let email = req.params.email;
+    const hash = await bcrypt.hash(req.body.password, 10)
+    const up = await UserData.updateOne({ email: email }, { $set: { password: hash, confirm_password: hash } })
+    res.send(up)
+} catch (error) {
+    return res.send({ message: 'error' })
+    } finally {
+        UserData.close();
+    }
 
-
-    const hash = await bcrypt.hash(req.body.password , 10)
-    const up = await UserData.updateOne({ email: email }, { $set: { password:hash,confirm_password:hash} })
-   res.send(up)
+   
     
 })
 
