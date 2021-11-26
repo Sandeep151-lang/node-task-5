@@ -25,11 +25,7 @@ export const Register = () => {
         last_name: Yup.string().min(3, 'Too Short!').max(30, 'Too Long!')
             .required('Last Name is required'),
         password: Yup.string()
-            .required('Please Enter your password')
-            .matches(
-                "^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$",
-                "Must Contain 8 Characters, One Uppercase, One Lowercase and one special case Character"
-            ),
+            .required('Please Enter your password'),
         email: Yup.string().matches(
             "^[a-z0-9](.?[a-z0-9]){5,}@g(oogle)?mail.com$",
             "At least five alphanumeric characters and Must contain @gmail.com"
@@ -49,12 +45,12 @@ export const Register = () => {
                 // same shape as initial values
 
                 try {
-                const post = await axios.post(`https://nodejs-task-5.herokuapp.com/register`, values)
-                alert('register successfully')
+                    const post = await axios.post(`https://nodejs-task-5.herokuapp.com/register`, values)
+                    alert('register successfully')
 
-                setinitialvalues(post)
+                    setinitialvalues(post)
                     history.push("/")
-                    
+
                 } catch {
                     alert('invalid')
                 }

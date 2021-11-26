@@ -18,11 +18,7 @@ export const Login = () => {
     //validation for adding users data 
     const validationSchema = Yup.object().shape({
         password: Yup.string()
-            .required('Please Enter your password')
-            .matches(
-                "^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$",
-                "Must Contain 8 Characters, One Uppercase, One Lowercase and one special case Character"
-            ),
+            .required('Please Enter your password'),
         email: Yup.string().matches(
             "^[a-z0-9](.?[a-z0-9]){5,}@g(oogle)?mail.com$",
             "At least five alphanumeric characters and Must contain @gmail.com"
