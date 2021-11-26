@@ -153,7 +153,7 @@ router.put('/forget_password', async (req, res) => {
             const mailOptions = {
                 from: 'sandeepnandanwar92@gmail.com',
                 to: email,
-                subject: 'otp will expire in 1 minute',
+                subject: 'Link will be expire in 5 minute',
                 html: `https://vigilant-edison-543583.netlify.app/reset/${token}/${email}`
             };
             transporter.sendMail(mailOptions, function (error, info) {
